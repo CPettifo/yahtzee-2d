@@ -90,4 +90,5 @@ function PlayState:render()
 
     love.graphics.setColor(1, 1, 1, 128/255)
     love.graphics.rectangle('fill', x + factor, 142, 17, 17, 8)
+
 end
