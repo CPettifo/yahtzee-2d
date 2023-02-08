@@ -11,6 +11,7 @@ function PlayState:init()
     for i = 1, 5 do
         table.insert(self.dice, Die())
     end
+    self.scoreCard = ScoreCard()
     
 end
 
@@ -18,7 +19,7 @@ function PlayState:enter(params)
 
     self.turn = params.turn
 
-    -- self.scorecard = ScoreCard
+    self.scorecard = params.scoreCard
 
 end
 
@@ -46,9 +47,9 @@ function PlayState:update(dt)
 
     if self.canInput then
         if love.keyboard.wasPressed('space') then
-            self.rolls = self.rolls + 1
                 for k, die in pairs(self.dice) do
                     if die.reroll then
+                        self.rolls = self.rolls + 1
                         die.value = math.random(6)
                         die.reroll = false
                     end
