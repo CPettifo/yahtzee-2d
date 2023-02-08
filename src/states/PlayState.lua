@@ -6,9 +6,10 @@ function PlayState:init()
     self.rolls = 0
     self.debug = false
     self.dice = {}
+    self.selected = 1
+    self.position = 211
     for i = 1, 5 do
         table.insert(self.dice, Die())
-        print(self.dice[i].value)
     end
     
 end
@@ -46,11 +47,31 @@ function PlayState:update(dt)
         if love.keyboard.wasPressed('space') then
             self.rolls = self.rolls + 1
                 for k, die in pairs(self.dice) do
-                    if not die.rerolls then
+                    if die.reroll then
                         die.value = math.random(6)
+                        die.reroll = false
                     end
-                    print(die.value)
                 end
+        end
+        if love.keyboard.wasPressed('right') then
+            self.selected = self.selected + 1
+            if self.selected > 5 then
+                self.selected = 5
+            end
+        end
+        if love.keyboard.wasPressed('left') then
+            self.selected = self.selected - 1
+            if self.selected < 1 then
+                self.selected = 1
+            end
+        end
+
+        if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+            if not self.dice[self.selected].reroll then
+                self.dice[self.selected].reroll = true
+            else
+                self.dice[self.selected].reroll = false
+            end
         end
     end
 
@@ -63,4 +84,11 @@ function PlayState:render()
         die:render(x)
         x = x + 30
     end
+
+    x = self.position - 15
+    local factor = self.selected * 15
+
+    love.graphics.setColor(1, 1, 1, 128/255)
+    love.graphics.rectangle('fill', x + factor, 142, 17, 17, 8)
+
 end
