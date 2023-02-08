@@ -58,4 +58,9 @@ function PlayState:update(dt)
 end
 
 function PlayState:render()
+    local x = -70
+    for k, die in pairs(self.dice) do 
+        die:render(x)
+        x = x + 30
+    end
 end
