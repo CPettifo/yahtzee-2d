@@ -17,4 +17,5 @@ end
 
 function ScoreCard:add(row, score)
     self.score[row] = self.score[row] + score
+    
 end
