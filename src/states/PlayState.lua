@@ -35,6 +35,7 @@ function PlayState:update(dt)
     if love.keyboard.wasPressed(']') then
         self.debug = true
     end
+    
 
     if self.rolls >= 3 then
         -- allocate score and then go to next turn
